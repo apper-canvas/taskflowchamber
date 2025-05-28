@@ -87,6 +87,20 @@ const Sidebar = ({ isOpen, selectedProject, onSelectProject, currentView, onView
                   <ApperIcon name="CheckSquare" size={18} />
                   <span className="font-medium">Tasks</span>
                 </motion.button>
+
+                <motion.button
+                  whileHover={{ x: 4 }}
+                  onClick={() => onViewChange('calendar')}
+                  className={`w-full flex items-center gap-3 p-3 rounded-lg text-left transition-all duration-200 ${
+                    currentView === 'calendar'
+                      ? 'bg-primary-100 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300'
+                      : 'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300'
+                  }`}
+                >
+                  <ApperIcon name="Calendar" size={18} />
+                  <span className="font-medium">Calendar</span>
+                </motion.button>
+
               </div>
             </motion.div>
 

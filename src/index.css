@@ -102,6 +102,50 @@
     @apply h-full transition-all duration-1000 ease-out rounded-full;
   }
 
+
+  .calendar-grid {
+    @apply overflow-hidden;
+  }
+
+  .calendar-header {
+    @apply border-b border-gray-200 dark:border-gray-700;
+  }
+
+  .calendar-day-header {
+    @apply text-sm font-semibold uppercase tracking-wide;
+  }
+
+  .calendar-body {
+    @apply min-h-96;
+  }
+
+  .calendar-day-cell {
+    @apply relative overflow-hidden;
+  }
+
+  .calendar-day-cell:hover {
+    @apply z-10;
+  }
+
+  .calendar-task-event {
+    @apply text-xs font-medium truncate shadow-sm;
+  }
+
+  .calendar-task-event:hover {
+    @apply shadow-md z-20;
+  }
+
+  /* Calendar responsiveness */
+  @media (max-width: 768px) {
+    .calendar-day-cell {
+      @apply min-h-20 text-xs;
+    }
+    
+    .calendar-task-event {
+      @apply text-xs py-0.5 px-1;
+    }
+  }
+
 }
 
 @layer utilities {

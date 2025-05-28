@@ -6,6 +6,8 @@ import 'react-toastify/dist/ReactToastify.css'
 import Header from './components/layout/Header'
 import Sidebar from './components/layout/Sidebar'
 import Dashboard from './components/features/Dashboard'
+import CalendarView from './components/features/CalendarView'
+
 
 import TaskBoard from './components/features/TaskBoard'
 import ProjectModal from './components/features/ProjectModal'
@@ -66,16 +68,34 @@ function App() {
             <div className="p-6">
               {currentView === 'dashboard' ? (
                 <Dashboard selectedProject={selectedProject} />
+                <Dashboard selectedProject={selectedProject} />
+              ) : currentView === 'tasks' ? (
+                <TaskBoard 
+                  selectedProject={selectedProject}
+                  onEditTask={openTaskModal}
+                />
+              ) : currentView === 'calendar' ? (
+                <CalendarView 
+                  selectedProject={selectedProject}
+                  onEditTask={openTaskModal}
+                />
               ) : (
                 <TaskBoard 
                   selectedProject={selectedProject}
                   onEditTask={openTaskModal}
                 />
               )}
+
+            </div>
+
             </div>
 
           </main>
+
+          </main>
         </div>
+        </div>
+
 
         {/* Modals */}
         {isTaskModalOpen && (

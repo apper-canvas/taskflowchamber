@@ -58,6 +58,23 @@ const Header = ({ isDarkMode, toggleDarkMode, toggleSidebar, onCreateTask, onCre
                 <span>Tasks</span>
               </div>
             </motion.button>
+
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => onViewChange('calendar')}
+              className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+                currentView === 'calendar'
+                  ? 'bg-primary-100 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300'
+                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                <ApperIcon name="Calendar" size={16} />
+                <span>Calendar</span>
+              </div>
+            </motion.button>
+
           </div>
 
         <div className="flex items-center gap-3">
