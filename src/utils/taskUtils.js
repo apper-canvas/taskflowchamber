@@ -71,6 +71,8 @@ export const getTasksDueToday = (tasks) => {
     const taskDate = new Date(task.dueDate).toISOString().split('T')[0]
     return taskDate === today && task.status !== 'completed'
   })
+}
+
 
 export const getTasksByDate = (tasks, date) => {
   const targetDate = new Date(date).toISOString().split('T')[0]
@@ -78,6 +80,4 @@ export const getTasksByDate = (tasks, date) => {
     const taskDate = new Date(task.dueDate).toISOString().split('T')[0]
     return taskDate === targetDate
   })
-}
-
 }
