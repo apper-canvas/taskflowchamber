@@ -37,6 +37,8 @@ export const getTaskProgress = (tasks) => {
   
   const completed = tasks.filter(task => task.status === 'completed').length
   return Math.round((completed / tasks.length) * 100)
+}
+
 
 export const getOverdueTasks = (tasks) => {
   const now = new Date()
@@ -69,6 +71,4 @@ export const getTasksDueToday = (tasks) => {
     const taskDate = new Date(task.dueDate).toISOString().split('T')[0]
     return taskDate === today && task.status !== 'completed'
   })
-}
-
 }
