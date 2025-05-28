@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion'
 import ApperIcon from '../ApperIcon'
 
-const Header = ({ isDarkMode, toggleDarkMode, toggleSidebar, onCreateTask, onCreateProject }) => {
+const Header = ({ isDarkMode, toggleDarkMode, toggleSidebar, onCreateTask, onCreateProject, currentView, onViewChange }) => {
+
   return (
     <motion.header 
       initial={{ y: -20, opacity: 0 }}
@@ -24,6 +25,40 @@ const Header = ({ isDarkMode, toggleDarkMode, toggleSidebar, onCreateTask, onCre
             <h1 className="text-xl font-bold text-gray-900 dark:text-white">TaskFlow</h1>
           </div>
         </div>
+
+          <div className="flex items-center gap-2 ml-8">
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => onViewChange('dashboard')}
+              className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+                currentView === 'dashboard'
+                  ? 'bg-primary-100 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300'
+                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                <ApperIcon name="BarChart3" size={16} />
+                <span>Dashboard</span>
+              </div>
+            </motion.button>
+
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => onViewChange('tasks')}
+              className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+                currentView === 'tasks'
+                  ? 'bg-primary-100 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300'
+                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                <ApperIcon name="CheckSquare" size={16} />
+                <span>Tasks</span>
+              </div>
+            </motion.button>
+          </div>
 
         <div className="flex items-center gap-3">
           <motion.button

@@ -1,9 +1,19 @@
 import { motion, AnimatePresence } from 'framer-motion'
+import { useSelector } from 'react-redux'
 import { useProject } from '../../context/ProjectContext'
 import ApperIcon from '../ApperIcon'
+import { filterTasksByProject } from '../../utils/taskUtils'
 
-const Sidebar = ({ isOpen, selectedProject, onSelectProject }) => {
+
+const Sidebar = ({ isOpen, selectedProject, onSelectProject, currentView, onViewChange }) => {
+  const { tasks } = useSelector(state => state.tasks)
   const { projects } = useProject()
+  
+  // Calculate real-time stats
+  const filteredTasks = filterTasksByProject(tasks, selectedProject)
+  const totalTasks = filteredTasks.length
+  const completedTasks = filteredTasks.filter(task => task.status === 'completed').length
+
 
   const sidebarVariants = {
     open: { x: 0, opacity: 1 },
@@ -32,21 +42,63 @@ const Sidebar = ({ isOpen, selectedProject, onSelectProject }) => {
               <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Overview</h2>
               <div className="grid grid-cols-2 gap-3">
                 <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
-                  <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">12</div>
+                  <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{totalTasks}</div>
                   <div className="text-xs text-blue-600 dark:text-blue-400">Total Tasks</div>
                 </div>
                 <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
-                  <div className="text-2xl font-bold text-green-600 dark:text-green-400">8</div>
+                  <div className="text-2xl font-bold text-green-600 dark:text-green-400">{completedTasks}</div>
                   <div className="text-xs text-green-600 dark:text-green-400">Completed</div>
                 </div>
               </div>
+
             </motion.div>
+            {/* Navigation */}
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.15 }}
+              className="mb-8"
+            >
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Navigation</h2>
+              
+              <div className="space-y-2">
+                <motion.button
+                  whileHover={{ x: 4 }}
+                  onClick={() => onViewChange('dashboard')}
+                  className={`w-full flex items-center gap-3 p-3 rounded-lg text-left transition-all duration-200 ${
+                    currentView === 'dashboard'
+                      ? 'bg-primary-100 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300'
+                      : 'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300'
+                  }`}
+                >
+                  <ApperIcon name="BarChart3" size={18} />
+                  <span className="font-medium">Dashboard</span>
+                </motion.button>
+
+                <motion.button
+                  whileHover={{ x: 4 }}
+                  onClick={() => onViewChange('tasks')}
+                  className={`w-full flex items-center gap-3 p-3 rounded-lg text-left transition-all duration-200 ${
+                    currentView === 'tasks'
+                      ? 'bg-primary-100 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300'
+                      : 'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300'
+                  }`}
+                >
+                  <ApperIcon name="CheckSquare" size={18} />
+                  <span className="font-medium">Tasks</span>
+                </motion.button>
+              </div>
+            </motion.div>
+
+
 
             {/* Project Filter */}
             <motion.div
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.2 }}
+            >
+
             >
               <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Projects</h2>
               
@@ -85,11 +137,13 @@ const Sidebar = ({ isOpen, selectedProject, onSelectProject }) => {
               </div>
             </motion.div>
 
-            {/* Quick Actions */}
             <motion.div
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.3 }}
+              className="mt-8"
+            >
+
               className="mt-8"
             >
               <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Quick Filters</h2>

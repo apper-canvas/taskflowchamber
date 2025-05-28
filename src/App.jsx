@@ -5,8 +5,9 @@ import 'react-toastify/dist/ReactToastify.css'
 // Components
 import Header from './components/layout/Header'
 import Sidebar from './components/layout/Sidebar'
+import Dashboard from './components/features/Dashboard'
+
 import TaskBoard from './components/features/TaskBoard'
-import TaskModal from './components/features/TaskModal'
 import ProjectModal from './components/features/ProjectModal'
 
 // Context
@@ -19,6 +20,8 @@ function App() {
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false)
   const [editingTask, setEditingTask] = useState(null)
   const [selectedProject, setSelectedProject] = useState('all')
+  const [currentView, setCurrentView] = useState('dashboard')
+
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode)
@@ -44,22 +47,33 @@ function App() {
           toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
           onCreateTask={() => openTaskModal()}
           onCreateProject={() => setIsProjectModalOpen(true)}
+          currentView={currentView}
+          onViewChange={setCurrentView}
         />
+
         
         <div className="flex">
           <Sidebar 
             isOpen={isSidebarOpen}
             selectedProject={selectedProject}
             onSelectProject={setSelectedProject}
+            currentView={currentView}
+            onViewChange={setCurrentView}
           />
+
           
           <main className={`flex-1 transition-all duration-300 ${isSidebarOpen ? 'ml-80' : 'ml-0'}`}>
             <div className="p-6">
-              <TaskBoard 
-                selectedProject={selectedProject}
-                onEditTask={openTaskModal}
-              />
+              {currentView === 'dashboard' ? (
+                <Dashboard selectedProject={selectedProject} />
+              ) : (
+                <TaskBoard 
+                  selectedProject={selectedProject}
+                  onEditTask={openTaskModal}
+                />
+              )}
             </div>
+
           </main>
         </div>
 

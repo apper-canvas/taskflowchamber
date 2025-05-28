@@ -37,4 +37,38 @@ export const getTaskProgress = (tasks) => {
   
   const completed = tasks.filter(task => task.status === 'completed').length
   return Math.round((completed / tasks.length) * 100)
+
+export const getOverdueTasks = (tasks) => {
+  const now = new Date()
+  return tasks.filter(task => {
+    const dueDate = new Date(task.dueDate)
+    return dueDate < now && task.status !== 'completed'
+  })
+}
+
+export const getTasksByPriority = (tasks, priority) => {
+  return tasks.filter(task => task.priority === priority)
+}
+
+export const getProjectTasksProgress = (tasks, projectId) => {
+  const projectTasks = filterTasksByProject(tasks, projectId)
+  return getTaskProgress(projectTasks)
+}
+
+export const getTasksCompletedToday = (tasks) => {
+  const today = new Date().toISOString().split('T')[0]
+  return tasks.filter(task => {
+    const taskDate = new Date(task.updatedAt).toISOString().split('T')[0]
+    return taskDate === today && task.status === 'completed'
+  })
+}
+
+export const getTasksDueToday = (tasks) => {
+  const today = new Date().toISOString().split('T')[0]
+  return tasks.filter(task => {
+    const taskDate = new Date(task.dueDate).toISOString().split('T')[0]
+    return taskDate === today && task.status !== 'completed'
+  })
+}
+
 }
