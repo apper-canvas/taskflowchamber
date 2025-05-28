@@ -8,6 +8,7 @@ import Sidebar from './components/layout/Sidebar'
 import Dashboard from './components/features/Dashboard'
 import CalendarView from './components/features/CalendarView'
 
+import TaskModal from './components/features/TaskModal'
 
 import TaskBoard from './components/features/TaskBoard'
 import ProjectModal from './components/features/ProjectModal'
@@ -68,7 +69,6 @@ function App() {
             <div className="p-6">
               {currentView === 'dashboard' ? (
                 <Dashboard selectedProject={selectedProject} />
-                <Dashboard selectedProject={selectedProject} />
               ) : currentView === 'tasks' ? (
                 <TaskBoard 
                   selectedProject={selectedProject}
@@ -88,12 +88,9 @@ function App() {
 
             </div>
 
-            </div>
 
           </main>
 
-          </main>
-        </div>
         </div>
 
 
