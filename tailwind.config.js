@@ -30,8 +30,12 @@ export default {
           700: '#334155',
           800: '#1e293b',
           900: '#0f172a',
+        },
         }
+      borderColor: {
+        border: '#e5e5e5',
       },
+
       animation: {
         'fade-in': 'fadeIn 0.2s ease-in-out',
         'slide-up': 'slideUp 0.3s ease-out',
